@@ -1,0 +1,32 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-O2",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/main.o",
+      "src/main.cpp"
+    ],
+    "directory": "/home/mrkrot/Documents/programming/cpp/Vulkan 3D game",
+    "file": "/home/mrkrot/Documents/programming/cpp/Vulkan 3D game/src/main.cpp",
+    "output": "/home/mrkrot/Documents/programming/cpp/Vulkan 3D game/build/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-O2",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/tve_window.o",
+      "src/tve_window.cpp"
+    ],
+    "directory": "/home/mrkrot/Documents/programming/cpp/Vulkan 3D game",
+    "file": "/home/mrkrot/Documents/programming/cpp/Vulkan 3D game/src/tve_window.cpp",
+    "output": "/home/mrkrot/Documents/programming/cpp/Vulkan 3D game/build/tve_window.o"
+  }
+]

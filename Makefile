@@ -1,14 +1,32 @@
-CFLAGS = -std=c++17 -O2
+CXX = g++
+CXXFLAGS = -std=c++17 -O2 -Iinclude -MMD -MP
 LDFLAGS = -lglfw -lvulkan -ldl -lpthread -lX11 -lXxf86vm -lXrandr -lXi
 
-VulkanTest: main.cpp
-	g++ $(CFLAGS) -o VulkanTest main.cpp $(LDFLAGS)
+SRC_DIR = src
+BUILD_DIR = build
+INCLUDE_DIR = include
+SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
+OBJECTS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SOURCES))
+TARGET = VulkanTest
 
-.PHONY: test clean
+.PHONY: all test clean
 
-test: VulkanTest
-	./VulkanTest
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp | $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
+test: $(TARGET)
+	./$(TARGET)
 
 clean:
-	rm -f VulkanTest
+	rm -rf $(BUILD_DIR) $(TARGET)
+
+-include $(OBJECTS:.o=.d)
 
