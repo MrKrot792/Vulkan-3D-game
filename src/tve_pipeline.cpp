@@ -1,14 +1,18 @@
 #include "tve_pipeline.hpp"
 
+#include <cstdint>
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
+#include <vulkan/vulkan_core.h>
 
 namespace tve
 {
-TvePipeline::TvePipeline(const std::string &vertFilepath, const std::string &fragFilepath)
+TvePipeline::TvePipeline(MyEngineDevice &device, const std::string &vertFilepath, const std::string &fragFilepath,
+                         const PipelineConfigInfo &configInfo)
+    : tveDevice{device}
 {
-    createGraphicsPipeline(vertFilepath, fragFilepath);
+    createGraphicsPipeline(device, vertFilepath, fragFilepath, configInfo);
 }
 
 std::vector<char> TvePipeline::readFile(const std::string &filepath)
@@ -30,7 +34,8 @@ std::vector<char> TvePipeline::readFile(const std::string &filepath)
     return buffer;
 }
 
-void TvePipeline::createGraphicsPipeline(const std::string &vertFilepath, const std::string &fragFilepath)
+void TvePipeline::createGraphicsPipeline(const MyEngineDevice &device, const std::string &vertFilepath,
+                                         const std::string &fragFilepath, const PipelineConfigInfo &configInfo)
 {
     auto vertCode = readFile(vertFilepath);
     auto fragCode = readFile(fragFilepath);
@@ -38,4 +43,25 @@ void TvePipeline::createGraphicsPipeline(const std::string &vertFilepath, const 
     std::cout << "Vertex shader code size: " << vertCode.size() << "\n";
     std::cout << "Fragment shader code size: " << fragCode.size() << "\n";
 }
+
+void TvePipeline::createShaderModule(const std::vector<char> &code, VkShaderModule *shaderModule)
+{
+    VkShaderModuleCreateInfo createInfo{};
+    createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+    createInfo.codeSize = code.size();
+    createInfo.pCode = reinterpret_cast<const uint32_t *>(code.data());
+
+    if (vkCreateShaderModule(tveDevice.device(), &createInfo, nullptr, shaderModule) != VK_SUCCESS)
+    {
+        std::runtime_error("Failed to create shader module");
+    }
+}
+
+PipelineConfigInfo TvePipeline::defaultPipelineConfigInfo(uint32_t width, uint32_t height)
+{
+    PipelineConfigInfo configInfo{};
+
+    return configInfo;
+}
+
 } // namespace tve

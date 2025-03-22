@@ -1,4 +1,4 @@
-#include "engine_device.hpp"
+#include "tve_engine_device.hpp"
 #include "tve_window.hpp"
 
 // std headers
@@ -178,8 +178,8 @@ void MyEngineDevice::createLogicalDevice()
     createInfo.enabledExtensionCount = static_cast<uint32_t>(deviceExtensions.size());
     createInfo.ppEnabledExtensionNames = deviceExtensions.data();
 
-    // might not really be necessary anymore because device specific validation layers
-    // have been deprecated
+    // might not really be necessary anymore because device specific validation
+    // layers have been deprecated
     if (enableValidationLayers)
     {
         createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());

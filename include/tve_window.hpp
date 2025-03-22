@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vulkan/vulkan_core.h>
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 #include <string>
@@ -19,6 +20,8 @@ class TveWindow
     {
         return glfwWindowShouldClose(window);
     }
+
+    void createWindowSurface(VkInstance instance, VkSurfaceKHR *surface);
 
   private:
     void initWindow();

@@ -2,6 +2,7 @@
 
 #include "tve_pipeline.hpp"
 #include "tve_window.hpp"
+#include "tve_engine_device.hpp"
 
 namespace tve
 {
@@ -15,6 +16,7 @@ class App
 
   private:
     TveWindow tveWindow{WIDTH, HEIGHT, "Vulkan"};
-    TvePipeline tvePipeline{"shaders/simple_shader.vert.spv", "shaders/simple_shader.frag.spv"};
+    MyEngineDevice tveDevice{tveWindow};
+    TvePipeline tvePipeline{tveDevice, "shaders/simple_shader.vert.spv", "shaders/simple_shader.frag.spv", TvePipeline::defaultPipelineConfigInfo(WIDTH, HEIGHT)};
 };
 } // namespace tve

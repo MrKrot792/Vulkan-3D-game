@@ -1,5 +1,6 @@
 #include "tve_app.hpp"
 
+#include <cstdio>
 #include <cstdlib>
 #include <exception>
 #include <iostream>
