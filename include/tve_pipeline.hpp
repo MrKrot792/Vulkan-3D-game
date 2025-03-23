@@ -12,7 +12,6 @@ struct PipelineConfigInfo
 {
     VkViewport viewport;
     VkRect2D scissor;
-    VkPipelineViewportStateCreateInfo viewportInfo;
     VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
     VkPipelineRasterizationStateCreateInfo rasterizationInfo;
     VkPipelineMultisampleStateCreateInfo multisampleInfo;
@@ -27,7 +26,7 @@ struct PipelineConfigInfo
 class TvePipeline
 {
   public:
-    TvePipeline(MyEngineDevice &device, const std::string &vertFilepath, const std::string &fragFilepath,
+    TvePipeline(TveDevice &device, const std::string &vertFilepath, const std::string &fragFilepath,
                 const PipelineConfigInfo &configInfo);
 
     ~TvePipeline();
@@ -40,12 +39,12 @@ class TvePipeline
   private:
     static std::vector<char> readFile(const std::string &filepath);
 
-    void createGraphicsPipeline(const MyEngineDevice &device, const std::string &vertFilepath,
+    void createGraphicsPipeline(const TveDevice &device, const std::string &vertFilepath,
                                 const std::string &fragFilepath, const PipelineConfigInfo &configInfo);
 
     void createShaderModule(const std::vector<char> &code, VkShaderModule *shaderModule);
 
-    MyEngineDevice &tveDevice;
+    TveDevice &tveDevice;
     VkPipeline graphicsPipeline;
     VkShaderModule vertShaderModule;
     VkShaderModule fragShaderModule;

@@ -28,7 +28,7 @@ struct QueueFamilyIndices
     }
 };
 
-class MyEngineDevice
+class TveDevice
 {
   public:
 #ifdef NDEBUG
@@ -37,14 +37,14 @@ class MyEngineDevice
     const bool enableValidationLayers = true;
 #endif
 
-    MyEngineDevice(TveWindow &window);
-    ~MyEngineDevice();
+    TveDevice(TveWindow &window);
+    ~TveDevice();
 
     // Not copyable or movable
-    MyEngineDevice(const MyEngineDevice &) = delete;
-    void operator=(const MyEngineDevice &) = delete;
-    MyEngineDevice(MyEngineDevice &&) = delete;
-    MyEngineDevice &operator=(MyEngineDevice &&) = delete;
+    TveDevice(const TveDevice &) = delete;
+    void operator=(const TveDevice &) = delete;
+    TveDevice(TveDevice &&) = delete;
+    TveDevice &operator=(TveDevice &&) = delete;
 
     VkCommandPool getCommandPool()
     {

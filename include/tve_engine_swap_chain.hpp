@@ -12,16 +12,16 @@
 namespace tve
 {
 
-class MyEngineSwapChain
+class TveSwapChain
 {
   public:
     static constexpr int MAX_FRAMES_IN_FLIGHT = 2;
 
-    MyEngineSwapChain(MyEngineDevice &deviceRef, VkExtent2D windowExtent);
-    ~MyEngineSwapChain();
+    TveSwapChain(TveDevice &deviceRef, VkExtent2D windowExtent);
+    ~TveSwapChain();
 
-    MyEngineSwapChain(const MyEngineSwapChain &) = delete;
-    void operator=(const MyEngineSwapChain &) = delete;
+    TveSwapChain(const TveSwapChain &) = delete;
+    void operator=(const TveSwapChain &) = delete;
 
     VkFramebuffer getFrameBuffer(int index)
     {
@@ -90,7 +90,7 @@ class MyEngineSwapChain
     std::vector<VkImage> swapChainImages;
     std::vector<VkImageView> swapChainImageViews;
 
-    MyEngineDevice &device;
+    TveDevice &device;
     VkExtent2D windowExtent;
 
     VkSwapchainKHR swapChain;
