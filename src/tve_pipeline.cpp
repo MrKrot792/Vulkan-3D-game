@@ -1,11 +1,11 @@
 #include "tve_pipeline.hpp"
 
+#include <cassert>
 #include <cstdint>
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
 #include <vulkan/vulkan_core.h>
-#include <cassert>
 
 namespace tve
 {
@@ -45,8 +45,10 @@ std::vector<char> TvePipeline::readFile(const std::string &filepath)
 void TvePipeline::createGraphicsPipeline(const TveDevice &device, const std::string &vertFilepath,
                                          const std::string &fragFilepath, const PipelineConfigInfo &configInfo)
 {
-    assert(configInfo.pipelineLayout != VK_NULL_HANDLE && "Cannot create graphics pipeline: no pipelineLayout provided in configInfo.");
-    assert(configInfo.renderPass != VK_NULL_HANDLE && "Cannot create graphics pipeline: no renderPass provided in configInfo.");
+    assert(configInfo.pipelineLayout != VK_NULL_HANDLE &&
+           "Cannot create graphics pipeline: no pipelineLayout provided in configInfo.");
+    assert(configInfo.renderPass != VK_NULL_HANDLE &&
+           "Cannot create graphics pipeline: no renderPass provided in configInfo.");
 
     auto vertCode = readFile(vertFilepath);
     auto fragCode = readFile(fragFilepath);
@@ -125,6 +127,11 @@ void TvePipeline::createShaderModule(const std::vector<char> &code, VkShaderModu
     {
         std::runtime_error("Failed to create shader module");
     }
+}
+
+void TvePipeline::bind(VkCommandBuffer commandBuffer)
+{
+    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline);
 }
 
 PipelineConfigInfo TvePipeline::defaultPipelineConfigInfo(uint32_t width, uint32_t height)
